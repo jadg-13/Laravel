@@ -13,8 +13,12 @@ class StudentController extends Controller
     public function index()
     {
         //
-        $students = Student::all();
-        return view('students.index', compact('students'));
+        try {
+            $students = Student::all();
+            return view('students.index', compact('students'));
+        } catch (\Exception $e) {
+            return view('welcome');
+        }
     }
 
     /**
@@ -23,7 +27,11 @@ class StudentController extends Controller
     public function create()
     {
         //
-        return view('students.create');
+        try {
+            return view('students.create');
+        } catch (\Exception $e) {
+            return redirect()->route('students.index');
+        }
     }
 
     /**
@@ -32,14 +40,18 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         //
-        $student = new Student();
-        $student->cif = $request->cif;
-        $student->name = $request->name;
-        $student->last_name = $request->last_name;
-        $student->email = $request->email;
-        $student->phone = $request->phone;
-        $student->save();
-        return redirect()->route('students.index');
+        try {
+            $student = new Student();
+            $student->cif = $request->cif;
+            $student->name = $request->name;
+            $student->last_name = $request->last_name;
+            $student->email = $request->email;
+            $student->phone = $request->phone;
+            $student->save();
+            return redirect()->route('students.index');
+        } catch (\Exception $e) {
+            return redirect()->route('students.index');
+        }
     }
 
     /**
@@ -48,8 +60,12 @@ class StudentController extends Controller
     public function show(string $id)
     {
         //
-        $student = Student::find($id);
-        return view('students.show', compact('student'));
+        try {
+            $student = Student::find($id);
+            return view('students.show', compact('student'));
+        } catch (\Exception $e) {
+            return redirect()->route('students.index');
+        }
     }
 
     /**
@@ -58,8 +74,12 @@ class StudentController extends Controller
     public function edit(string $id)
     {
         //
-        $student = Student::find($id);
-        return view('students.edit', compact('student'));
+        try {
+            $student = Student::find($id);
+            return view('students.edit', compact('student'));
+        } catch (\Exception $e) {
+            return redirect()->route('students.index');
+        }
     }
 
     /**
@@ -68,14 +88,18 @@ class StudentController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        $student = Student::find($id);
-        $student->cif = $request->cif;
-        $student->name = $request->name;
-        $student->last_name = $request->last_name;
-        $student->email = $request->email;
-        $student->phone = $request->phone;
-        $student->save();
-        return redirect()->route('students.index');
+        try {
+            $student = Student::find($id);
+            $student->cif = $request->cif;
+            $student->name = $request->name;
+            $student->last_name = $request->last_name;
+            $student->email = $request->email;
+            $student->phone = $request->phone;
+            $student->save();
+            return redirect()->route('students.index');
+        } catch (\Exception $e) {
+            return redirect()->route('students.index');
+        }
     }
 
     /**
@@ -84,8 +108,12 @@ class StudentController extends Controller
     public function destroy(string $id)
     {
         //
-        $student = Student::find($id);
-        $student->delete();
-        return redirect()->route('students.index');
+        try {
+            $student = Student::find($id);
+            $student->delete();
+            return redirect()->route('students.index');
+        } catch (\Exception $e) {
+            return redirect()->route('students.index');
+        }
     }
 }

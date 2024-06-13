@@ -3,6 +3,7 @@
 @section('content')
     <div class="container">
         <h2>Listado de Estudiante</h2>
+        <a href="{{route('students.create')}}" class="btn btn-outline-primary">Crear Nuevo Registro</a>
     </div>
     <div class="container">
         <table class="table">
@@ -24,15 +25,20 @@
                         <td>{{ $student->last_name }}</td>
                         <td>{{ $student->email }}</td>
                         <td>{{ $student->phone }}</td>
-                        <td>
-                            {{-- <a href="{{ route('students.show', $student->id) }}">Ver</a>
-                        <a href="{{ route('students.edit', $student->id) }}">Editar</a>
-                        <form action="{{ route('students.destroy', $student->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit">Eliminar</button>
-                        </form> --}}
-                        </td>
+                     
+                            
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a href="{{ route('students.show', $student->id) }}" class="btn btn-primary">Ver</a>
+                                    <a href="{{ route('students.edit', $student->id) }}" class="btn btn-secondary">Editar</a>
+                                    <form action="{{ route('students.destroy', $student->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </form>
+                                </div>
+                            </td>
+                       
                     </tr>
                 @endforeach
             </tbody>
