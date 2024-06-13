@@ -5,7 +5,7 @@
         <h2>Estudiante</h2>
 
         {{-- editar estudiante --}}
-        <form action="{{ route('students.update') }}" method="post">
+        <form action="{{ route('students.update', $student->id) }}" method="post">
             @csrf
             <div class="form-group">
                 <label for="cif">CIF</label>
